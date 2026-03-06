@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Ma ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
+color:white;
+overflow:hidden;
+}
+
+.container{
+padding:25px;
+max-width:500px;
+}
+
+h1{
+font-size:2.2rem;
+margin-bottom:10px;
+}
+
+p{
+font-size:1.1rem;
+line-height:1.7;
+}
+
+button{
+margin-top:20px;
+padding:12px 25px;
+font-size:18px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4d6d;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+button:hover{
+background:#ffe6ec;
+}
+
+.cake{
+font-size:80px;
+animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+0%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
+100%{transform:translateY(0)}
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+}
+
+/* mobile */
+
+@media(max-width:600px){
+h1{font-size:1.8rem}
+p{font-size:1rem}
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+
+<div class="cake">🎂</div>
+
+<h1>Happy Birthday Shivani ❤️</h1>
+
+<p>
+💖<br>
+Happy Birthday Shivani (Nanna Pritiya Hudugi) ❤️ <br>
+You are the most beautiful part of my life. <br>
+My happiness, my peace, and the reason my heart smiles every day. <br>
+I am so lucky to have you in my life. <br>
+I will always love you forever. ❤️
+</p>
+
+<button onclick="celebrate()">Click for Surprise 🎉</button>
+
+</div>
+
+<audio id="music">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c5f5f1a3c.mp3?filename=happy-birthday-to-you-113985.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let confetti=[];
+
+function createConfetti(){
+return{
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height-canvas.height,
+r:Math.random()*6+2,
+color:"hsl("+Math.random()*360+",100%,50%)",
+speed:Math.random()*3+2
+}
+}
+
+function celebrate(){
+
+document.getElementById("music").play();
+
+for(let i=0;i<200;i++){
+confetti.push(createConfetti());
+}
+
+animate();
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+confetti.forEach((c,i)=>{
+
+ctx.beginPath();
+ctx.fillStyle=c.color;
+ctx.fillRect(c.x,c.y,c.r,c.r);
+
+c.y+=c.speed;
+
+if(c.y>canvas.height){
+confetti[i]=createConfetti();
+confetti[i].y=0;
+}
+
+});
+
+requestAnimationFrame(animate);
+}
+
+</script>
+
+</body>
+</html>
